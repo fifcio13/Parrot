@@ -36,7 +36,7 @@ class _ParrotState extends State<Parrot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: headerNavHome(
-        title: 'Parrot',
+        title: 'Parrot Testing',
       ),
       body: Column(
         children: <Widget>[
