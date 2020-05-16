@@ -21,10 +21,8 @@ class _ParrotState extends State<Parrot> {
     super.initState();
     getNamePreference().then((name){
       setState(() {
-        if(data != null) {
+        if(name != 'null') {
           data = name;
-        } else {
-          data = 'Activity 1';
         }
       });
     });
@@ -36,7 +34,7 @@ class _ParrotState extends State<Parrot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: headerNavHome(
-        title: 'Parrot Testing',
+        title: 'Parrot',
       ),
       body: Column(
         children: <Widget>[

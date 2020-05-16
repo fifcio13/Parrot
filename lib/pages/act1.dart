@@ -17,10 +17,8 @@ class _SubPageState extends State<SubPage> {
     super.initState();
     getNamePreference().then((name){
       setState(() {
-        if(data != null) {
+        if(name != 'null') {
           data = name;
-        } else {
-          data = 'Activity 1';
         }
       });
     });
