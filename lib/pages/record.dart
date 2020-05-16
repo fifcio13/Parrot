@@ -49,31 +49,33 @@ class AppBodyState extends State<AppBody> {
     return Center(
       child: Padding(
         padding: EdgeInsets.all(8.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              FlatButton(
-                onPressed: _isRecording ? null : _start,
-                child: new Text("Start"),
-                color: Colors.green,
-              ),
-              FlatButton(
-                onPressed: _isRecording ? _stop : null,
-                child: new Text("Stop"),
-                color: Colors.red,
-              ),
-//              TextField(
-//                controller: _controller,
-//                decoration: new InputDecoration(
-//                  hintText: 'Enter a custom path',
-//                ),
-//              ),
-              Text("File path of the record: ${_recording.path}"),
-              Text("Format: ${_recording.audioOutputFormat}"),
-              Text("Extension : ${_recording.extension}"),
-              Text(
-                  "Audio recording duration : ${_recording.duration.toString()}")
-            ]),
+        child: Scaffold(
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: _isRecording ? null : _start,
+                  child: Text("Start"),
+                  color: Colors.green,
+                ),
+                FlatButton(
+                  onPressed: _isRecording ? _stop : null,
+                  child: Text("Stop"),
+                  color: Colors.red,
+                ),
+                TextField(
+                  controller: _controller,
+                  decoration: new InputDecoration(
+                    hintText: 'Enter a custom path',
+                  ),
+                ),
+                Text("File path of the record: ${_recording.path}"),
+                Text("Format: ${_recording.audioOutputFormat}"),
+                Text("Extension : ${_recording.extension}"),
+                Text(
+                    "Audio recording duration : ${_recording.duration.toString()}")
+              ]),
+        ),
       ),
     );
   }
