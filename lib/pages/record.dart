@@ -85,7 +85,8 @@ class RecorderExampleState extends State<RecorderExample> {
                               {
                                 _stop();
                                 _init();
-                                showSnackBar();
+
+
 
                                 setState(() {
                                   iconData = Icons.mic;
@@ -114,9 +115,53 @@ class RecorderExampleState extends State<RecorderExample> {
     );
   }
 
+  TextEditingController _changeRecordingName = TextEditingController();
+  String newfilename = 'NOT SET';
+
+  _displayDialog(BuildContext context, totalnewfilename) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Edit recording name'),
+            content: TextField(
+              controller: _changeRecordingName,
+              autofocus: true,
+              maxLength: 20,
+              maxLines: 1,
+              decoration: InputDecoration(hintText: "Recording name for ex: dog",
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: purplecolor)),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: purplecolor))
+              ),
+
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text('Save'),
+                onPressed: () {
+                  setState(() {
+                    newfilename = _changeRecordingName.text;
+                  });
+                  Navigator.of(context).pop();
+                  showSnackBar();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   void showSnackBar() {
     final snackBarContent = SnackBar(
-      content: Text("Recorded %Name"),
+      content: Text("Recorded $newfilename"),
       action: SnackBarAction(
           label: 'OK', onPressed: _scaffoldkey.currentState.hideCurrentSnackBar),
     );
@@ -201,10 +246,20 @@ class RecorderExampleState extends State<RecorderExample> {
   }
 
   _stop() async {
+
     var result = await _recorder.stop();
+
     print("Stop recording: ${result.path}");
     print("Stop recording: ${result.duration}");
     File file = widget.localFileSystem.file(result.path);
+
+    String fileName = file.path.split('/').last;
+    print("File name: $fileName");
+
+    await _displayDialog(context, newfilename).then((val){
+      _rename(file);
+    });
+
     print("File length: ${await file.length()}");
     setState(() {
       _current = result;
@@ -212,6 +267,15 @@ class RecorderExampleState extends State<RecorderExample> {
     });
   }
 
+  _rename(file) async {
+
+    print("NEW FILE NAME: $newfilename");
+
+    String newPath = "/storage/emulated/0/Android/data/parrot.parrot_flutter/files/$newfilename.m4a";
+    file.renameSync(newPath);
+
+    print(newPath);
+  }
 //  void onPlayAudio() async {
 //    AudioPlayer audioPlayer = AudioPlayer();
 //    await audioPlayer.play(_current.path, isLocal: true);
