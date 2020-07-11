@@ -38,7 +38,7 @@ class _SubPageState extends State<SubPage> {
             children: <Widget>[
                 RawMaterialButton(
                       onPressed: () {
-//                        navigateToListenPage(context);
+                        navigateToListenPage(context);
                       },
                       elevation: 3.0,
                       fillColor: Colors.white,
@@ -78,13 +78,11 @@ Future<String> getNamePreference() async {
   return name.toString();
 }
 
-//Future navigateToListenPage(context) async {
-//  Navigator.push(context, MaterialPageRoute(builder: (context) => ListenPage()));
-//}
-//Future navigateToRecordPage(context) async {
-//  Navigator.push(context, MaterialPageRoute(builder: (context) => Record()));
-//}
-
 Future navigateToRecordPage(context) async {
   Navigator.push(context, MaterialPageRoute(builder: (context) => RecorderExample()));
+}
+
+
+Future navigateToListenPage(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => Listen()));
 }

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:parrot_flutter/components/headerNav.dart';
 
 
-void main() => runApp(new Record());
+void main() => runApp(new Listen());
 
-class Record extends StatefulWidget{
+class Listen extends StatefulWidget{
   @override
   _RecordState createState() => _RecordState();
 }
 
-class _RecordState extends State<Record> {
+class _RecordState extends State<Listen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: headerNav(title: 'Recording screen'),
+      appBar: headerNav(title: 'Listening screen'),
       body: Center(
 
       ),

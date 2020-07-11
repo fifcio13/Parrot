@@ -51,7 +51,6 @@ class RecorderExampleState extends State<RecorderExample> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _init();
   }
@@ -149,6 +148,7 @@ class RecorderExampleState extends State<RecorderExample> {
                 onPressed: () {
                   setState(() {
                     newfilename = _changeRecordingName.text;
+                    _changeRecordingName.clear();
                   });
                   Navigator.of(context).pop();
                   showSnackBar();
@@ -161,7 +161,7 @@ class RecorderExampleState extends State<RecorderExample> {
 
   void showSnackBar() {
     final snackBarContent = SnackBar(
-      content: Text("Recorded $newfilename"),
+      content: Text("Recorded: $newfilename"),
       action: SnackBarAction(
           label: 'OK', onPressed: _scaffoldkey.currentState.hideCurrentSnackBar),
     );
@@ -271,7 +271,10 @@ class RecorderExampleState extends State<RecorderExample> {
 
     print("NEW FILE NAME: $newfilename");
 
-    String newPath = "/storage/emulated/0/Android/data/parrot.parrot_flutter/files/$newfilename.m4a";
+    String s = file.path;
+    String result = s.substring(0, s.lastIndexOf('/'));
+
+    String newPath = "$result/$newfilename.m4a";
     file.renameSync(newPath);
 
     print(newPath);
